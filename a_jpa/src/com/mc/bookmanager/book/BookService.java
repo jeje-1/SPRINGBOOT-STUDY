@@ -3,46 +3,147 @@ package com.mc.bookmanager.book;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import com.mc.bookmanager.book.dto.BookDto;
 import com.mc.bookmanager.jpa.EntityTemplate;
-import com.mc.bookmanager.member.Member;
-import com.mc.bookmanager.member.dto.MemberDto;
 
 public class BookService {
 	
 	private BookRepository bookRepository = new BookRepository();
 
-	public static BookDto findBookByTitle(String title) {
+	public List<BookDto> findAllBook() {
+		
 		EntityManager em = EntityTemplate.getEntityManager();
-		Book book = null;
+		List<Book> books = null;
 		
 		try {
-			book = em.find(Book.class, title);
-		} finally {
-			//EntityManager 종료
-			//EntityManager를 종료하면 Entity들은 더이상 EntityManager의 관리대상이 아니게된다. == 준영속상태로 변경된다.
-			// close : EntityManger 종료
-			// clear : EntityManager 초기화, EntityManager가 관리하고 있던 모든 Entity들을 준영속 상태로 변경
-			// detach : 특정 Entity를 준영속 상태로 변경할 때 사용
-			em.close();
-		}
-		
-		return new BookDto(book);
-	}
-
-	public List<BookDto> findAllBooks() {
-		
-		List<Member> books = null;
-		EntityManager em = EntityTemplate.getEntityManager();
-		
-		try {
-			books = bookRepository.findAllBooks(em);
+			books = bookRepository.findAllBook(em); 
 		} finally {
 			em.close();
 		}
 		
-		return MemberDto.toDtoList(books);
+		return BookDto.toDtoList(books);
 	}
 
+	public boolean createBook(BookDto dto) {
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		try {
+			Book book = Book.createBook(dto);
+			em.persist(book);
+			tx.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			em.close();
+		}
+		
+		return false;
+	}
+
+	public boolean updateBookInfo(long bkIdx, String info) {
+		
+		EntityManager em =EntityTemplate.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		try {
+			
+			Book book = em.find(Book.class, bkIdx);
+			book.updateInfo(info);
+			
+			tx.commit();
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			em.close();
+		}
+		
+		return false;
+	}
+
+	public boolean removeBook(long bkIdx) {
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		try {
+			Book book = em.find(Book.class, bkIdx);
+			em.remove(book);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			em.close();
+		}
+		
+		return false;
+	}
+
+	public List<BookDto> findBookByTitle(String keyword) {
+		EntityManager em = EntityTemplate.getEntityManager();
+		List<BookDto> bookDtos = null;
+		
+		try {
+		
+			List<Book> books = bookRepository.findBookByTitle(em, keyword);
+			bookDtos = BookDto.toDtoList(books);
+			System.out.println(bookDtos);
+		} finally {
+			em.close();
+		}
+		
+		return bookDtos;
+	}
+
+	public List<BookDto> findBookTopN(int limit) {
+		EntityManager em = EntityTemplate.getEntityManager();
+		List<BookDto> bookDtos = null;
+		
+		try {
+			List<Book> books = bookRepository.findBookTopN(em, limit);
+			bookDtos = BookDto.toDtoList(books);
+		} finally {
+			em.close();
+		}
+		
+		return bookDtos;
+	}
+
+	
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
