@@ -20,7 +20,7 @@
               validate      : SessionFactory 생성 시 테이블의 스키마가 적합한지 검사
               none         : 아무 작업도 하지 않음
          -->
-         <property name="hibernate.hbm2ddl.auto" value="create"/>         
+         <property name="hibernate.hbm2ddl.auto" value="none"/>         
          <property name="hibernate.show_sql" value="true"/>
          <property name="hibernate.format_sql" value="true"/>
          

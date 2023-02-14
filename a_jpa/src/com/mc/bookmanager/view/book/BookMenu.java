@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import com.mc.bookmanager.book.Book;
 import com.mc.bookmanager.book.BookController;
+import com.mc.bookmanager.book.dto.BookDto;
+import com.mc.bookmanager.member.dto.MemberDto;
 
 public class BookMenu {
    
@@ -25,7 +27,7 @@ public class BookMenu {
          
          switch(sc.nextInt()) {
          case 1 :
-            //bookController의 searchAllBooks()를 호출하고
+            //bookController의 findAllBooks()를 호출하고
             //결과값을 출력
          
             
@@ -85,6 +87,9 @@ public class BookMenu {
             //bookController의 searchBookByTitle 메서드에 사용자가 입력한
             //도서명을 전달하고 결과를 출력하시오.   
             System.out.print("검색할 키워드를 입력하세요 : ");
+            String title = sc.next();
+            BookDto book = bookController.findBookByTitle(title);
+            System.out.println(book);
             
             break;
          case 2 :
@@ -98,8 +103,10 @@ public class BookMenu {
       }while(true);
    }
    
-   public Book registBook() {
-      Book book = new Book();
+   public BookDto registBook() {
+	   
+      BookDto book = new BookDto();
+      
       System.out.println("도서정보를 입력하세요---------------------");
       System.out.print("도서 제목 : ");
       book.setTitle(sc.next());
