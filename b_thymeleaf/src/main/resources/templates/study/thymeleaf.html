@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<th:block th:insert="fragments :: common_head"/>
+	<style>
+		h1{
+			color:navy;
+		}
+	</style>
 </head>
 <body th:with="var='<i>내가 제일 좋아하는 언어 점수 :  </i>'">
 	<h1>thymeleaf 공부하기</h1>
@@ -63,5 +67,43 @@
 	<p th:if="${score >= 60}"> 결과 : 합격</p>
 	<p th:unless="${score >= 60}"> 결과 : 불합격</p>
 	
+	
+	<h2>8. Each / switch case</h2>
+	<ul>
+		<li th:each="e, status : ${devScore.keySet()}" th:switch="${devScore.get(e)/10}">
+			
+			[[${status.count}]] , 과목 [[${e}]] : [[${devScore.get(e)}]]
+			<span th:case="${10}">(A++)</span>
+			<span th:case="${9}">(A)</span>
+			<span th:case="${8}">(B)</span>
+			<span th:case="${7}">(C)</span>
+			<span th:case="${6}">(D)</span>
+			<span th:case="${5}">(F)</span>
+			<span th:case="*">불합격</span>
+		</li>
+	</ul>
+	
+	<h3>원하는 횟수만큼 반복한 반복문</h3>
+		<div th:each="e, status : ${#numbers.sequence(0,5)}">
+			<span th:text="|index : ${status.index},|"></span>
+			<span th:text="|count : ${status.count},|"></span>
+			<span th:text="|size : ${status.size},|"></span>
+			<span th:text="|current : ${status.current},|"></span>
+			<span th:text="|even : ${status.even},|"></span>
+			<span th:text="|odd : ${status.odd},|"></span>
+			<span th:text="|first : ${status.first},|"></span>
+			<span th:text="|last : ${status.last}|"></span>
+	  </div>
+	  
+	  <h2>9. fragments 표현식 ~{...}</h2>
+	 	<pre>
+	 		fragment 표현식을 호출하는 방법
+	 		1. th:insert => html 요소에 fragment 추가
+	 		2. th:replace => html 요소를 대체
+	 	</pre>
+	 	<div th:insert="~{fragments :: top}"></div>
+	 	<div th:insert="~{fragments :: top}"></div>
+	  
+	  
 </body>
 </html>
