@@ -51,7 +51,7 @@ public class Book {
 		this.info = info;
 	}
 
-	public void updateBookAmt(int bookAmt) {
+	public void updateBookAmt(Integer bookAmt) {
 		this.bookAmt = bookAmt;
 		
 	}

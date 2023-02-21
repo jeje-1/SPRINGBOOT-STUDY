@@ -34,16 +34,12 @@ import lombok.NoArgsConstructor;
 	name = "Rent.rentBooks",
 	attributeNodes = {
 			@NamedAttributeNode(value = "rentBooks", subgraph = "RentBook.book")
+			,@NamedAttributeNode(value = "member")
+
 	}
 	,subgraphs = {
-			@NamedSubgraph(name="RentBook.book", attributeNodes = {
-				 	 @NamedAttributeNode(value = "book"
-				 			 //subgraph = "RentBook.book.Author"
-				 	 )})
+			@NamedSubgraph(name="RentBook.book", attributeNodes = { @NamedAttributeNode(value = "book")})
 			
-//			,@NamedSubgraph(name="RentBook.book.Author", attributeNodes = {
-//				 	 @NamedAttributeNode("author")
-//			})
 	}
 )
 
@@ -87,7 +83,7 @@ public class Rent {
 	
 	//		  EAGER : 엔티티를 조회할 때 연관 엔티티를 함께 조회함
 	//		  LAZY  : 엔티티를 조회할 때는 연관 엔티티를 조회하지 않음, 해당 연관엔티티(속성)가 처음으로 호출되는 시점에 연관엔티티를 조회
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rent", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rent", fetch = FetchType.EAGER)
 	private List<RentBook> rentBooks = new ArrayList<>();
 
 	public static Rent createRent(String title, Member member, int rentBookCnt) {
