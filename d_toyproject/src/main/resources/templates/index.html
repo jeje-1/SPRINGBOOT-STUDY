@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout}">
 <head>
-   <th:block th:insert="fragments :: flg_head"/>
 </head>
 <body>
-   <div th:replace="fragments :: top"></div>
-   <div layout:fragment="content" class="container wrap_content"></div>
-   <div th:replace="fragments :: footer"></div>
+   <div layout:fragment="content">
+      <h1>Hello SpringBoot</h1>
+   </div>
 </body>
 </html>
