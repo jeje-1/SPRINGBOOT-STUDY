@@ -22,42 +22,42 @@ import lombok.NoArgsConstructor;
 @DynamicUpdate // entity에서 변경이 발견되지 않은 값은 쿼리에서 생략
 @Builder @NoArgsConstructor @AllArgsConstructor @Getter
 public class Member {
-   
-   @Id
-   private String userId;
-   private String password;
-   private String email;
-   private String grade;
-   private String tell;
-   
-   @ColumnDefault("false")
-   private Boolean isLeave;
-   
-   @Column(columnDefinition = "timestamp default now()")
-   private LocalDateTime regDate;
-   
-   @Column(columnDefinition = "timestamp default now()")
-   private LocalDateTime rentableDate;
+	
+	@Id
+	private String userId;
+	private String password;
+	private String email;
+	private String grade;
+	private String tell;
+	
+	@ColumnDefault("false")
+	private Boolean isLeave;
+	
+	@Column(columnDefinition = "timestamp default now()")
+	private LocalDateTime regDate;
+	
+	@Column(columnDefinition = "timestamp default now()")
+	private LocalDateTime rentableDate;
 
-   public static Member createMember(SignUpRequest dto) {
-      return Member.builder()
-            .userId(dto.getUserId())
-            .password(dto.getPassword())
-            .tell(dto.getTell())
-            .email(dto.getEmail())
-            .build();
-   }
-   
+	public static Member createMember(SignUpRequest dto) {
+		return Member.builder()
+				.userId(dto.getUserId())
+				.password(dto.getPassword())
+				.tell(dto.getTell())
+				.email(dto.getEmail())
+				.build();
+	}
 
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface MemberRepository extends JpaRepository<Member, String>{
 	
 	Member findByUserIdAndIsLeave(String userId, Boolean isLeave);
-	
+
 }

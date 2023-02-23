@@ -1,17 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/include/head.jsp" %>
-<body>
-<%@ include file="/WEB-INF/views/include/header.jsp" %>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+<head>
+</head>
 
-<div class="container wrap_content">
+<body>
+
+<div class="container wrap_content" layout:fragment="content">
 	<ul>
-		<li>${auth.userId}</li>
-		<li>${auth.password}</li>
-		<li>${auth.email}</li>
+		<li th:text="${session.auth.userId}"></li>
+		<li th:text="${session.auth.tell}"></li>
+		<li th:text="${session.auth.email}"></li>
 	</ul>
 </div>
 
-<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>

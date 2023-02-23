@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/include/head.jsp" %>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout}">
 <head>
 	<link href="/resources/css/board/board.css" rel="stylesheet"> 
 </head>
 <body>
-<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<div class="content container">
+<div class="content container" layout:fragment="content">
 	<h2 class="tit">*게시판</h2>
 	<div class="desc_board">
-		<form action="${context}/board/upload" method="post" enctype="multipart/form-data">
+		<form th:action="@{/board/upload}" method="post" enctype="multipart/form-data">
 			<div>
 				<div class="tit_board">
 					제목 : <input type="text" name="title" required="required"/>
@@ -29,6 +29,5 @@
 
 
 
-<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>

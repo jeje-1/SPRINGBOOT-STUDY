@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.mc.mvc.infra.code.Code;
-import com.mc.mvc.infra.mail.EMailSender;
+import com.mc.mvc.infra.util.mail.EMailSender;
 import com.mc.mvc.module.member.dto.Principal;
 import com.mc.mvc.module.member.dto.request.LoginRequest;
 import com.mc.mvc.module.member.dto.request.SignUpRequest;
@@ -30,12 +30,13 @@ public class MemberService {
 	private final RestTemplate restTemplate;
 	private final EMailSender sender;
 	private final PasswordEncoder passwordEncoder;
-
+	
 	public boolean existUser(String userId) {
 		return memberRepository.existsById(userId);
 	}
 
 	public void authenticateEmail(@Valid SignUpRequest form, String authToken) {
+		
 		Map<String, Object> body = new LinkedHashMap<String, Object>();
 		body.put("userId", form.getUserId());
 		body.put("authToken", authToken);
@@ -51,18 +52,19 @@ public class MemberService {
 		String html = response.getBody();
 		
 		sender.send(form.getEmail(), "회원가입을 환영합니다. 링크를 클릭해 회원가입을 완료하세요.", html);
-		
 	}
-	
+
 	@Transactional
 	public void registNewMember(SignUpRequest form) {
+		
 		form.setPassword(passwordEncoder.encode(form.getPassword()));
 		Member member = Member.createMember(form);
 		memberRepository.save(member);
+		
 	}
-	
 
-	public Principal authenticateUser(@Valid LoginRequest loginRequest) {
+	public Principal authenticateUser(LoginRequest loginRequest) {
+		
 		Member member = memberRepository.findByUserIdAndIsLeave(loginRequest.getUserId(), false);
 		
 		if(member == null) return null;
@@ -74,4 +76,13 @@ public class MemberService {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
