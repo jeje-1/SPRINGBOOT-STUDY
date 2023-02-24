@@ -3,8 +3,6 @@ package com.mc.mvc.module.member.dto.request;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.Nationalized;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignUpRequest {
 	
-	@Nationalized
+	@NotBlank
 	private String userId;
 	
 	@NotBlank
@@ -22,6 +20,7 @@ public class SignUpRequest {
 	@Email
 	private String email;
 	
-	@NotBlank//database에 not null 지정하지 않아도 됨
+	@NotBlank
 	private String tell;
+	
 }

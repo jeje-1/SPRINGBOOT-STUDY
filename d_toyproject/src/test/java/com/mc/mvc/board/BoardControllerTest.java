@@ -21,28 +21,20 @@ public class BoardControllerTest {
 	MockMvc mockMvc;
 	
 	@Test
-	   public void testUpload() throws Exception {
-	      Principal principal = new Principal();
-	      principal.setUserId("test");
-	      
-	      MockMultipartFile file1 = new MockMultipartFile("files", "ofn1.txt", "text/plain", "파일업로드테스트1".getBytes());
-	      MockMultipartFile file2 = new MockMultipartFile("files", "ofn2.txt", "text/plain", "파일업로드테스트2".getBytes());
-	      
-	    	  mockMvc.perform(multipart("/board/upload")
-	  	            .file(file1)
-	  	            .file(file2)
-	  	            .param("title", "게시글업로드테스트")
-	  	            .param("content", "게시글업로드테스트 중입니다.")
-	  	            .sessionAttr("auth", principal))
-	  	      .andDo(print());
-	
-	      mockMvc.perform(multipart("/board/upload")
-	            .file(file1)
-	            .file(file2)
-	            .param("title", "게시글업로드테스트")
-	            .param("content", "게시글업로드테스트 중입니다.")
-	            .sessionAttr("auth", principal))
-	      .andDo(print());
-	      
-	   }
+	public void testUpload() throws Exception {
+		
+		Principal principal = new Principal();
+		principal.setUserId("test");
+		
+		MockMultipartFile file1 = new MockMultipartFile("files", "ofn1.txt", "text/plain", "파일업로드테스트1".getBytes());
+		MockMultipartFile file2 = new MockMultipartFile("files", "ofn2.txt", "text/plain", "파일업로드테스트2".getBytes());
+		
+		mockMvc.perform(multipart("/board/upload")
+				.file(file1)
+				.file(file2)
+				.param("title", "게시글업로드테스트")
+				.param("content", "게시글업로드테스트 중입니다.")
+				.sessionAttr("auth", principal))
+		.andDo(print());
+	}
 }

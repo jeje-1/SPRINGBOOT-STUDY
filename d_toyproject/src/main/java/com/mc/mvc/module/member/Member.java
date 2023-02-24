@@ -47,7 +47,7 @@ public class Member {
 				.email(dto.getEmail())
 				.build();
 	}
-
+	
 
 	
 	

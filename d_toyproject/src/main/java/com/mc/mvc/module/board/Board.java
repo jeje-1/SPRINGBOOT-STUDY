@@ -18,6 +18,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.mc.mvc.infra.util.file.FilePath;
+import com.mc.mvc.infra.util.file.dto.FilePathDto;
+import com.mc.mvc.module.board.dto.request.BoardModifyRequest;
 import com.mc.mvc.module.board.dto.request.BoardRegistRequest;
 import com.mc.mvc.module.member.Member;
 
@@ -31,64 +33,74 @@ import lombok.NoArgsConstructor;
 @DynamicUpdate // entity에서 변경이 발견되지 않은 값은 쿼리에서 생략
 @Builder @NoArgsConstructor @AllArgsConstructor @Getter
 public class Board {
-   
-   @Id
-   @GeneratedValue
-   private Long bdIdx;
-   
-   @ManyToOne
-   @JoinColumn(name = "userId")
-   private Member member;
-   
-   @Column(columnDefinition = "timestamp default now()")
-   private LocalDateTime regDate;
-   
-   private String title;
-   
-   private String content;
-   
-   @ColumnDefault("false")
-   private Boolean isDel;
-   
-   @OneToMany(cascade = CascadeType.ALL)
-   @Builder.Default
-   private List<FilePath> files = new ArrayList<FilePath>();
+	
+	@Id
+	@GeneratedValue
+	private Long bdIdx;
+	
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private Member member;
+	
+	@Column(columnDefinition = "timestamp default now()")
+	private LocalDateTime regDate;
+	
+	private String title;
+	
+	private String content;
+	
+	@ColumnDefault("false")
+	private Boolean isDel;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@Builder.Default
+	private List<FilePath> files = new ArrayList<FilePath>();
 
-   public static Board createBoard(BoardRegistRequest dto, Member member) {
-      return Board.builder()
-            .member(member)
-            .title(dto.getTitle())
-            .content(dto.getContent())
-            .build();
-   }
+	public static Board createBoard(BoardRegistRequest dto, Member member) {
+		return Board.builder()
+				.member(member)
+				.title(dto.getTitle())
+				.content(dto.getContent())
+				.build();
+	}
 
-   public void addFile(FilePath filePath) {
-      this.files.add(filePath);
-   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+	public void addFile(FilePath filePath) {
+		this.files.add(filePath);
+	}
+
+	public void removeFile(FilePath filePath) {
+		this.files.remove(filePath);
+	}
+
+	public void updateBoard(BoardModifyRequest dto) {
+		this.title = dto.getTitle();
+		this.content = dto.getContent();
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

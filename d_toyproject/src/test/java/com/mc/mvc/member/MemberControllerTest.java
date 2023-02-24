@@ -23,30 +23,42 @@ public class MemberControllerTest {
 	MockMvc mockMvc;
 	
 	@Test
-	public void testSignUpFormValidator() throws Exception {
-		mockMvc.perform(post("/member/mailauth")
-				.param("userId", "testUserWithEmail2")
+	public void testSendAuthenticateMail() throws Exception {
+		mockMvc.perform(post("/member/signup")
+				.param("userId", "test")
 				.param("password", "1234")
-				.param("email", "econoone@gmail.com")
+				.param("email", "azimemory@gmail.com")
 				.param("tell", "010-0119-0112"))
 		.andDo(print());
 	}
 	
 	@Test
-	@DisplayName("회원가입정보")
-	public void testRegistUser() throws Exception {
+	@DisplayName("회원가입 정보 저장")
+	public void testSignUpImpl() throws Exception {
 		
 		SignUpRequest form = new SignUpRequest();
 		form.setUserId("test");
 		form.setPassword("123qwe!@#QWE");
-		form.setEmail("econoone@gmail.com");
-		form.setTell("010-2222-2222");
+		form.setEmail("azimemory@gmail.com");
+		form.setTell("010-0000-0112");
 		
 		mockMvc.perform(get("/member/signupimpl/1234")
 				.sessionAttr("signupForm", form)
 				.sessionAttr("authToken", "1234"))
-			.andExpect(status().is3xxRedirection());
-		
+		.andExpect(status().is3xxRedirection());
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

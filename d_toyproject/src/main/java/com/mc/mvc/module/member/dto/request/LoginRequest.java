@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class LoginRequest {
-	
-	@NotBlank(message="userId가 공백입니다.")
+
+	@NotBlank(message = "아이디를 입력해주세요.")
 	private String userId;
 	
-	@NotBlank(message="password가 공백입니다.")
+	@NotBlank(message = "비밀번호를 입력해주세요.")
 	private String password;
+	
 }
