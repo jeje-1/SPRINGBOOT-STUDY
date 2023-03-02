@@ -1,9 +1,12 @@
-package com.mc.mvc.module.board;
+package com.mc.mvc.module.epl;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Long>{
+public interface EplRepository extends JpaRepository<EplRank,Long>{
+	
+	
+	
 
 }
