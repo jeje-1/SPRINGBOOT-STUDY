@@ -6,7 +6,9 @@ public enum Code {
 	SMTP_FROM("test239078@naver.com"),
 	
 	// 배포 시 servlet-context.xml 의 resources 경로도 함께 수정
-	STORAGE_PATH("/Users/jeje/CODE/storage");
+	
+	STORAGE_PATH("/Users/jeje/CODE/storage"),
+	OPENAI_API_KEY("");
 	
 	public String desc;
 	

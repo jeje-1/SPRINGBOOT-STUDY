@@ -47,7 +47,7 @@ public class OpenAITest {
 	@Test
 	public void testImageGeneration() {
 		String url = "https://api.openai.com/v1/images/generations";
-		String API_KEY = "";
+		String API_KEY = "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";
 		
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("prompt", "cute ironman character");
